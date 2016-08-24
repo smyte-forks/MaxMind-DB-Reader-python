@@ -59,10 +59,10 @@ static int Reader_init(PyObject *self, PyObject *args, PyObject *kwds)
         return -1;
     }
 
-    if (mode != 0 && mode != 1) {
+    if (mode != 0 && mode != 1 && mode != 2) {
         PyErr_Format(PyExc_ValueError, "Unsupported open mode (%i). Only "
-            "MODE_AUTO and MODE_MMAP_EXT are supported by this extension.",
-            mode);
+            "MODE_AUTO, MODE_MEMORY_EXT and MODE_MMAP_EXT "
+            "are supported by this extension.", mode);
         return -1;
     }
 
@@ -86,7 +86,8 @@ static int Reader_init(PyObject *self, PyObject *args, PyObject *kwds)
         return -1;
     }
 
-    uint16_t status = MMDB_open(filename, MMDB_MODE_MMAP, mmdb);
+    int mmdb_mode = mode == 2 ? MMDB_MODE_MEMORY : MMDB_MODE_MMAP;
+    uint16_t status = MMDB_open(filename, mmdb_mode, mmdb);
 
     if (MMDB_SUCCESS != status) {
         free(mmdb);

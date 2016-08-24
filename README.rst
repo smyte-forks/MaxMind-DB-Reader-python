@@ -46,6 +46,7 @@ Optionally, you may pass a mode as the second arguments. The modes are
 exported from ``maxminddb``. Valid modes are:
 
 * MODE_MMAP_EXT - use the C extension with memory map.
+* MODE_MEMORY_EXT - use the C extension with full memory load.
 * MODE_MMAP - read from memory map. Pure Python.
 * MODE_FILE - read database as standard file. Pure Python.
 * MODE_MEMORY - load database into memory. Pure Python.
